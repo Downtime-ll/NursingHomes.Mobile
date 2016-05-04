@@ -1,0 +1,3 @@
+rootProject.name = 'NursingHomesMobile'
+
+include ':app'
