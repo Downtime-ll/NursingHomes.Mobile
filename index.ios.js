@@ -1,3 +1,6 @@
+'use strict'
 
-import main from './src/main';
+import { AppRegistry } from 'react-native'
+import { Root } from './built'
 
+AppRegistry.registerComponent('App', () => Root)

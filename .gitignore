@@ -40,5 +40,5 @@ android/app/libs
 android/keystores/debug.keystore
 
 
-# typescript
-typings/
+built/
+
