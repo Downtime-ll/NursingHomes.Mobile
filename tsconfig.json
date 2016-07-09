@@ -1,76 +1,8 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "es6",
-        "moduleResolution": "node",
-        "noImplicitAny": false,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "jsx": "react",
-        "outDir": "built",
-        "allowJs": true,
-        "noImplicitUseStrict": false,
-        "noLib": false,
-        "suppressImplicitAnyIndexErrors": true,
-        "declaration": false
+        "allowJs": true
     },
-    "compileOnSave": true,
-    "filesGlob": [
-        "./src/**/*.ts",
-        "./src/**/*.tsx",
-        "./typings/**/*.ts",
-        "./typings/index.d.ts"
-    ],
-    "files": [
-        "./src/models/AppState.ts",
-        "./src/models/navigation.ts",
-        "./src/models/session.ts",
-        "./src/modules/AppViewContainer.ts",
-        "./src/modules/common/Colors.ts",
-        "./src/modules/counter/CounterState.ts",
-        "./src/modules/counter/CounterViewContainer.ts",
-        "./src/modules/navigation/actions.ts",
-        "./src/modules/navigation/constant.ts",
-        "./src/modules/navigation/NavigationViewContainer.ts",
-        "./src/modules/navigation/reducers.ts",
-        "./src/modules/profile/ProfileViewContainer.ts",
-        "./src/modules/session/SessionState.ts",
-        "./src/redux/middleware.ts",
-        "./src/redux/middleware/loggerMiddleware.ts",
-        "./src/redux/reducer.ts",
-        "./src/redux/store.ts",
-        "./src/services/randomNumberService.ts",
-        "./src/utils/snapshot.ts",
-        "./src/components/MainLayout/MainLayoutReader.tsx",
-        "./src/index.tsx",
-        "./src/modules/AppRouter.tsx",
-        "./src/modules/AppView.tsx",
-        "./src/modules/counter/CounterView.tsx",
-        "./src/modules/navigation/NavigationTabView.tsx",
-        "./src/modules/navigation/NavigationView.tsx",
-        "./src/modules/profile/ProfileView.tsx",
-        "./src/modules/tabbar/TabBar.tsx",
-        "./src/modules/tabbar/TabBarButton.tsx",
-        "./typings/globals/react-native/index.d.ts",
-        "./typings/globals/react/index.d.ts",
-        "./typings/globals/redux-actions/index.d.ts",
-        "./typings/globals/redux-logger/index.d.ts",
-        "./typings/globals/redux-promise/index.d.ts",
-        "./typings/globals/redux-thunk/index.d.ts",
-        "./typings/globals/typescript/index.d.ts",
-        "./typings/index.d.ts",
-        "./typings/lib/immutable-overrides.d.ts",
-        "./typings/modules/bluebird/index.d.ts",
-        "./typings/modules/immutable/index.d.ts",
-        "./typings/modules/react-redux/index.d.ts",
-        "./typings/modules/redux-immutable/index.d.ts",
-        "./typings/modules/redux/index.d.ts"
-    ],
     "exclude": [
         "node_modules"
-    ],
-    "atom": {
-        "rewriteTsconfig": true
-    }
+    ]
 }

@@ -1,6 +1,5 @@
-'use strict'
 
-import { AppRegistry } from 'react-native'
-import { Root } from './built'
+import {AppRegistry} from 'react-native';
+import {Root} from './src';
 
-AppRegistry.registerComponent('App', () => Root)
+AppRegistry.registerComponent('App', () => Root);
