@@ -4,6 +4,7 @@ import * as React from 'react';
 import CounterViewContainer from './counter/CounterViewContainer';
 // import ProfileViewContainer from './profile/ProfileViewContainer';
 import LoginViewContainer from './auth/login';
+import AwesomeProject from './imagetest/AwesomeProject';
 
 export default function AppRouter(props: any) {
   const onNavigate = props.onNavigate;
@@ -14,7 +15,7 @@ export default function AppRouter(props: any) {
   }
 
   if (key === 'Profile') {
-    return <LoginViewContainer />;
+    return <AwesomeProject />;
   }
 
   if (key === 'login') {

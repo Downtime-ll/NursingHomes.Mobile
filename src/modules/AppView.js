@@ -6,12 +6,14 @@ import * as SessionStateActions from '../modules/session/SessionState';
 import store from '../redux/store';
 import NavigationViewContainer from './navigation/NavigationViewContainer';
 import AppRouter from './AppRouter';
+import {fetchUserPrefs} from '../common/action';
 
 export default class AppView extends React.Component {
   componentDidMount() {
+    debugger;
+    const {dispatch} = this.props;
     snapshoutUtil.resetSnapshot()
       .then(snaphot => {
-        const {dispatch} = this.props;
 
         if (snaphot) {
           dispatch(SessionStateActions.resetSessionStateFromSnapshot(snaphot));
@@ -23,6 +25,8 @@ export default class AppView extends React.Component {
           snapshoutUtil.saveSnapshot(store.getState());
         });
       });
+
+    dispatch(fetchUserPrefs());
   }
 
   // private componentWithReceiveProps()

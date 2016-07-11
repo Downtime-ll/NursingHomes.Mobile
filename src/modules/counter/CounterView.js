@@ -35,27 +35,22 @@ export default class CounterView extends React.Component {
       : null;
     return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={this.increment} style={[styles.counterButton, loadingStyle]}>
+      <TouchableOpacity onPress={this.increment.bind(this)} style={[styles.counterButton, loadingStyle]}>
         <Text style={styles.counter}>
-          {this.props.counter} asdf
+          {this.props.counter}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={this.reset}>
+      <TouchableOpacity onPress={this.reset.bind(this)}>
         <Text style={styles.linkButton}>
           Reset
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={this.reset}>
-        <Text style={styles.linkButton}>
-          Reset
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={this.random}>
+      <TouchableOpacity onPress={this.random.bind((this))}>
         <Text style={styles.linkButton}>
           Random
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={this.bored} accessible={true}>
+      <TouchableOpacity onPress={this.bored.bind(this)} accessible={true}>
         <Text style={styles.linkButton}>
           {'I\'m bored!'}
         </Text>

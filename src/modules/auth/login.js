@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, Image, TextInput, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Image, TextInput, Text, View ,TouchableOpacity} from 'react-native';
 
 export default class Login extends React.Component {
   render() {

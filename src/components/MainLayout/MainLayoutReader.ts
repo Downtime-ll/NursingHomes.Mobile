@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {NgIf, NgFor} from '@angular/common';
-import {StyleSheet, AsyncStorage} from 'react-native';
+import {StyleSheet, AsyncStorage,View} from 'react-native';
 import {TextInput, OpacityFeedback} from 'angular2-react-native';
 
 class Palette {
@@ -23,13 +23,13 @@ class Todo {
 @Component({
   selector: 'todo-item',
   directives: [NgIf, OpacityFeedback],
-  template: `
+  template: `${
 <View [styleSheet]="styles.row">
 <Text [styleSheet]="[styles.tick, item.active ? styles.tickOff : styles.tickOn]" opacityFeedback (tap)="toggle($event)">{{item.active ? "[  ]" : "[x]"}}</Text>
 <Text *ngIf="!item.edited" [styleSheet]="[styles.main, item.active ? styles.mainOff : styles.mainOn]" (doubletap)="startEdit()">{{item.value}}</Text>
 <TextInput *ngIf="item.edited" [styleSheet]="styles.editor" [value]="item.value" (submit)="stopEdit($event)" autoFocus="true"></TextInput>
 <Text [styleSheet]="styles.cross" opacityFeedback (tap)="delete()">X</Text>
-</View>
+</View>}
 `
 })
 export class TodoItem {
@@ -117,7 +117,7 @@ export class TodoItem {
   selector: 'todo-mvc',
   host: {position: 'absolute', top: '0', left: '0', bottom: '0', right: '0'},
   directives: [NgFor, NgIf, TodoItem, OpacityFeedback],
-  template: `${
+  template: `
 <View [style]="{flexDirection: 'row'}">
   <Text [styleSheet]="[styles.all, leftCount == 0 ? styles.allOn : styles.allOff]" (tap)="selectAll()">V</Text>
   <TextInput [styleSheet]="styles.input" text="" placeholder="What needs to be done?" (submit)="createTodo($event)"></TextInput>
@@ -146,7 +146,7 @@ export class TodoItem {
   <View [styleSheet]="styles.clear" opacityFeedback (tap)="clearDone($event)">
     <Text [styleSheet]="styles.clearText">Clear\ndone</Text>
   </View>
-</View>}
+</View>
 `
 })
 export class TodoMVC {
