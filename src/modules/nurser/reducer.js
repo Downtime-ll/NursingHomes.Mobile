@@ -1,0 +1,4 @@
+class UserCollect extends Component{
+
+
+}

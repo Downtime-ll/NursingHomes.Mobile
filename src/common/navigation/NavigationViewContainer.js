@@ -10,12 +10,11 @@ export default connect(
     switchTab(index) {
       dispatch(switchTab(index));
     },
-    onNavigate(action) {
-      if (action.type === 'back' || action.type === 'BackAction') {
-        dispatch(popRoute());
-      } else if (action.type === 'animation-completed') {
-        dispatch(navigationCompleted());
-      }
+    onNavigateBack() {
+      dispatch(popRoute());
+    },
+    onNavigateCompleted() {
+      dispatch(navigationCompleted());
     }
   })
 )(NavigationView);

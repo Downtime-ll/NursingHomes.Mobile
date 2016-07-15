@@ -1,16 +1,13 @@
-// / <reference path="../../typings/index.d.ts" />
 import * as React from 'react';
 import {View} from 'react-native';
-import * as snapshoutUtil from '../utils/snapshot';
-import * as SessionStateActions from '../modules/session/SessionState';
-import store from '../redux/store';
-import NavigationViewContainer from './navigation/NavigationViewContainer';
+import * as snapshoutUtil from './utils/snapshot';
+import * as SessionStateActions from './common/session/SessionState';
+import store from './redux/store';
+import NavigationViewContainer from './common/navigation/NavigationViewContainer';
 import AppRouter from './AppRouter';
-import {fetchUserPrefs} from '../common/action';
 
 export default class AppView extends React.Component {
   componentDidMount() {
-    debugger;
     const {dispatch} = this.props;
     snapshoutUtil.resetSnapshot()
       .then(snaphot => {
@@ -26,10 +23,8 @@ export default class AppView extends React.Component {
         });
       });
 
-    dispatch(fetchUserPrefs());
+    // dispatch(fetchUserPrefs());
   }
-
-  // private componentWithReceiveProps()
 
   render() {
     return (

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "NursingHomesMobile.app"
-               BlueprintName = "NursingHomesMobile"
-               ReferencedContainer = "container:NursingHomesMobile.xcodeproj">
+               BuildableName = "nursinghomesmobile.app"
+               BlueprintName = "nursinghomesmobile"
+               ReferencedContainer = "container:nursinghomesmobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "NursingHomesMobileTests.xctest"
-               BlueprintName = "NursingHomesMobileTests"
-               ReferencedContainer = "container:NursingHomesMobile.xcodeproj">
+               BuildableName = "nursinghomesmobileTests.xctest"
+               BlueprintName = "nursinghomesmobileTests"
+               ReferencedContainer = "container:nursinghomesmobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "NursingHomesMobileTests.xctest"
-               BlueprintName = "NursingHomesMobileTests"
-               ReferencedContainer = "container:NursingHomesMobile.xcodeproj">
+               BuildableName = "nursinghomesmobileTests.xctest"
+               BlueprintName = "nursinghomesmobileTests"
+               ReferencedContainer = "container:nursinghomesmobile.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "NursingHomesMobile.app"
-            BlueprintName = "NursingHomesMobile"
-            ReferencedContainer = "container:NursingHomesMobile.xcodeproj">
+            BuildableName = "nursinghomesmobile.app"
+            BlueprintName = "nursinghomesmobile"
+            ReferencedContainer = "container:nursinghomesmobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "NursingHomesMobile.app"
-            BlueprintName = "NursingHomesMobile"
-            ReferencedContainer = "container:NursingHomesMobile.xcodeproj">
+            BuildableName = "nursinghomesmobile.app"
+            BlueprintName = "nursinghomesmobile"
+            ReferencedContainer = "container:nursinghomesmobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "NursingHomesMobile.app"
-            BlueprintName = "NursingHomesMobile"
-            ReferencedContainer = "container:NursingHomesMobile.xcodeproj">
+            BuildableName = "nursinghomesmobile.app"
+            BlueprintName = "nursinghomesmobile"
+            ReferencedContainer = "container:nursinghomesmobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,10 +1,10 @@
 import {Map} from 'immutable';
 import {combineReducers} from 'redux-immutable';
-import NavigationStateReducer, {defaultNavigationState} from '../modules/navigation/reducers';
+import NavigationStateReducer, {defaultNavigationState} from '../common/navigation/reducers';
 import {userPrefsReducer} from '../common/reducer';
 // import AuthStateReducer from '../modules/auth/AuthState'
 import CounterStateReducer, {defaultCounterState} from '../modules/counter/CounterState';
-import SessionStateReducer, {defaultSessionState} from '../modules/session/SessionState';
+import SessionStateReducer, {defaultSessionState} from '../common/session/SessionState';
 
 // const getImmutable = (child, key) => child ? child.get(key) : void 0
 // const setImmutable = (child, key, value) => child.set(key, value)

@@ -29,7 +29,6 @@ const preferredThemer = defaultStyles => {
   return InnerComponent => class extends Component {
     constructor(props) {
       super(props);
-      debugger;
       const _preferredStyle = preferredStyle(props.userPrefs['preferredTheme'], props.userPrefs['preferredFontSize']);
       this._styles = this._mixinStyles(defaultStyles, _preferredStyle.styles);
       this._styleConstants = _preferredStyle['constants'];

@@ -1,5 +1,5 @@
 import * as CounterState from './CounterState';
-import * as NavigationState from '../../modules/navigation/actions';
+import * as NavigationState from '../../common/navigation/actions';
 import React,{PropTypes} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 

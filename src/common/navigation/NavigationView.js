@@ -4,8 +4,8 @@ import {
   StyleSheet
 } from 'react-native';
 import NavigationTabView from './NavigationTabView';
-import AppRouter from '../AppRouter';
-import TabBar from '../tabbar/TabBar';
+import AppRouter from '../../AppRouter';
+import TabBar from '../components/TabBar';
 
 const Tab_Bar_Height = 50;
 
@@ -16,7 +16,8 @@ export default class NavigationView extends React.Component {
   static propTypes: {
     router: PropTypes.func.isRequired,
     navigationState: PropTypes.object.isRequired,
-    onNavigate: PropTypes.func.isRequired,
+    onNavigateBack: PropTypes.func.isRequired,
+    onNavigateCompleted: PropTypes.func.isRequired,
     switchTab: PropTypes.func.isRequired
   }
 
@@ -29,7 +30,8 @@ export default class NavigationView extends React.Component {
           <NavigationTabView
             router={AppRouter}
             navigationState={tabState}
-            onNavigate={this.props.onNavigate}
+            onNavigateBack={this.props.onNavigateBack}
+            onNavigateCompleted={this.props.onNavigateCompleted}
             />
         </View>
       );
@@ -54,11 +56,11 @@ const styles = StyleSheet.create({
     flex: 1
   },
   viewContainer: {
-    // position: 'absolute',
-    // top: 0,
-    // left: 0,
-    // right: 0,
-    // bottom: Tab_Bar_Height
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: Tab_Bar_Height
   },
   hidden: {
     overflow: 'hidden',

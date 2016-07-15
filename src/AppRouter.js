@@ -1,10 +1,11 @@
 /// <reference path="../../typings/index.d.ts" />
 
 import * as React from 'react';
-import CounterViewContainer from './counter/CounterViewContainer';
+import CounterViewContainer from './modules/counter/CounterViewContainer';
 // import ProfileViewContainer from './profile/ProfileViewContainer';
-import LoginViewContainer from './auth/login';
-import AwesomeProject from './imagetest/AwesomeProject';
+import LoginViewContainer from './modules/auth/login';
+import AwesomeProject from './modules/imagetest/AwesomeProject';
+import NurserList from './modules/nurser/nurser';
 
 export default function AppRouter(props: any) {
   const onNavigate = props.onNavigate;
@@ -16,6 +17,10 @@ export default function AppRouter(props: any) {
 
   if (key === 'Profile') {
     return <AwesomeProject />;
+  }
+
+  if (key === 'Nurser') {
+    return <NurserList />;
   }
 
   if (key === 'login') {

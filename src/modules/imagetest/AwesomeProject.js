@@ -2,8 +2,8 @@ import * as React from 'react';
 import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import t from 'tcomb-form-native';
 import Alert from '../../common/components/alert';
-import Loading from '../../common/components/loading';
 import LoadMore from '../../common/components/loadmore';
+import Toast from '../../common/components/toast';
 
 import PhotoForm from '../../common/components/form/PhotoForm';
 
@@ -32,11 +32,7 @@ var options = {
 
 const AwesomeProject = React.createClass({
   onPress() {
-    this._alert.alert('确定退出?','',[
-            {text: '取消',style: 'cancel'},
-            {text: '确定',onPress: () => {
-            }}
-    ]);
+    Toast.show("登录失败");
     // call getValue() to get the values of the form
     var value = this.refs.form.getValue();
 
@@ -48,7 +44,6 @@ const AwesomeProject = React.createClass({
   render() {
     return (
     <View style={styles.container}>
-      <LoadMore />
       <Form ref='form' type={Person} options={options} />
       <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
         <Text style={styles.buttonText}>

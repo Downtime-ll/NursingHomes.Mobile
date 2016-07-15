@@ -47,5 +47,4 @@ class LoadMore extends Component {
   }
 }
 
-export default LoadMore
-;
+export default LoadMore;

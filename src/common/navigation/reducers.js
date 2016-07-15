@@ -5,17 +5,19 @@ import {NavigationAction} from './constant';
 export const defaultNavigationState = fromJS(
   createNavigationState('MainNavigation', 'App', null, [
     createNavigationState('HomeTab', 'Home', 'ios-home', [createNavigationState('Counter', 'Counter')]),
+    createNavigationState('NurserListTab', '护工列表', 'ios-home', [createNavigationState('Nurser', 'Nurser')]),
     createNavigationState('ProfileTab', '我', 'ios-person', [createNavigationState('Profile', '我')])
   ]));
 
-function createNavigationState(key, title, iconName, routes) {
+function createNavigationState(key, title, iconName, routes, shouldRenderHeader = false) {
   return {
     key,
     title,
     iconName,
     index: 0,
     routes,
-    isNavigating: false
+    isNavigating: false,
+    shouldRenderHeader: shouldRenderHeader
   };
 }
 
