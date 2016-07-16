@@ -9,8 +9,7 @@ export default class CounterView extends React.Component {
     userName: PropTypes.string,
     userProfilePhoto: PropTypes.string,
     loading: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    onNavigate: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired
   }
 
   increment() {

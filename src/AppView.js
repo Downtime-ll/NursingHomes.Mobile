@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View} from 'react-native';
-import * as snapshoutUtil from './utils/snapshot';
+import * as snapshoutService from './common/services/snapshotService';
 import * as SessionStateActions from './common/session/SessionState';
 import store from './redux/store';
 import NavigationViewContainer from './common/navigation/NavigationViewContainer';
@@ -8,8 +8,9 @@ import AppRouter from './AppRouter';
 
 export default class AppView extends React.Component {
   componentDidMount() {
+
     const {dispatch} = this.props;
-    snapshoutUtil.resetSnapshot()
+    snapshoutService.resetSnapshot()
       .then(snaphot => {
 
         if (snaphot) {
@@ -19,7 +20,7 @@ export default class AppView extends React.Component {
         }
 
         store.subscribe(() => {
-          snapshoutUtil.saveSnapshot(store.getState());
+          snapshoutService.saveSnapshot(store.getState());
         });
       });
 

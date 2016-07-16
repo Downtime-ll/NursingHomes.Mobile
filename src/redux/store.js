@@ -1,11 +1,19 @@
+import {applyMiddleware, createStore, compose} from 'redux';
+import * as reduxLoop from 'redux-loop';
 
-import {
-    applyMiddleware,
-    createStore
-} from 'redux';
 import middleware from './middleware';
-import reducer,{defaultAppState} from './reducer';
+import reducer from './reducer';
 
-const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
+const enhancer = compose(
+  applyMiddleware(...middleware),
+  reduxLoop.install()
+);
 
-export default createStoreWithMiddleware(reducer,defaultAppState);
+// create the store
+const store = createStore(
+  reducer,
+  null,
+  enhancer
+);
+
+export default store;
