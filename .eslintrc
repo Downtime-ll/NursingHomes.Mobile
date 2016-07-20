@@ -83,7 +83,6 @@
     "spaced-line-comment": 0,
     "strict": [2, "global"],
     "eqeqeq": 2,
-    "guard-for-in": 2,
     "no-alert": 2,
     "no-caller": 2,
     "no-labels": 2,

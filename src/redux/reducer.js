@@ -5,6 +5,7 @@ import {userPrefsReducer} from '../common/reducer';
 // import AuthStateReducer from '../modules/auth/AuthState'
 import CounterStateReducer, {defaultCounterState} from '../modules/counter/CounterState';
 import SessionStateReducer, {defaultSessionState, RESET_STATE} from '../common/session/SessionState';
+import NurserReducer from '../modules/nurser/reducer';
 
 // const getImmutable = (child, key) => child ? child.get(key) : void 0
 // const setImmutable = (child, key, value) => child.set(key, value)
@@ -18,6 +19,7 @@ export const defaultAppState = Map({
 const reducers = {
     // Authentication/login state
     // auth: AuthStateReducer,
+  nurser: NurserReducer,
   userPrefs: userPrefsReducer,
   counter: CounterStateReducer,
   navigation: NavigationStateReducer,

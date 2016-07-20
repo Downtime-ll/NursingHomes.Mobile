@@ -5,7 +5,7 @@ import CounterViewContainer from './modules/counter/CounterViewContainer';
 // import ProfileViewContainer from './profile/ProfileViewContainer';
 import LoginViewContainer from './modules/auth/login';
 import AwesomeProject from './modules/imagetest/AwesomeProject';
-import NurserList from './modules/nurser/nurser';
+import NurserList from './modules/nurser/nurserContainer';
 
 export default function AppRouter(props: any) {
   const onNavigate = props.onNavigate;

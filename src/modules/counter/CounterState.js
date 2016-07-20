@@ -1,6 +1,5 @@
 import {Map} from 'immutable';
 
-import {generateRandomNumber} from '../../services/randomNumberService';
 
 // Initial state
 const defaultCounterState = Map({
@@ -36,7 +35,7 @@ export function random() {
 export async function requestRandomNumber() {
   return {
     type: RANDOM_RESPONSE,
-    payload: await generateRandomNumber()
+    payload: null
   };
 }
 

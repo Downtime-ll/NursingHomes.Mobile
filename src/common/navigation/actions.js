@@ -10,7 +10,7 @@ export function switchTab(index: number) {
 export function pushRoute(state) {
   return (dispatch) => {
     if (!isNavigationAnimationInProgress(state)) {
-      dispatch.bind(null, {
+      dispatch({
         type: NavigationAction.PUSH_ROUTE,
         payload: state
       });

@@ -1,54 +1,237 @@
+import Promise from 'bluebird';
+import HttpError from 'standard-http-error';
+import {getConfiguration} from './configurationService';
+import {getAuthenticationToken} from './authenticationService';
 
-export default {
-  async get(url, data = {} , options) {
-    let newoptions = {
-      caching: 'permanent',
-      ...options
-    };
-    let params = [];
-    Object.keys(data).forEach((param) => {
-      params.push(`${param}=${encodeURIComponent(data[param])}`);
-    });
-    params = params.join('&');
-    let urlwithParams = `${url}?${params}`;
-    const cacheKey = 'cache.' + newoptions.keyPrefix + urlwithParams;
-    console.log(urlwithParams);
-    if (!newoptions.caching) {
-      let keys = await global.storage.getAllKeys();
-      await global.storage.multiRemove(keys.filter(key => key.startsWith(newoptions.keyPrefix)));
+const EventEmitter = require('event-emitter');
 
-      console.log(urlwithParams);
-      return await fetch(urlwithParams);
-      // return await response.json();
+const TIMEOUT = 6000;
+
+/**
+ * All HTTP errors are emitted on this channel for interested listeners
+ */
+export const errors = new EventEmitter();
+
+/**
+ * GET a path relative to API root url.
+ * @param {String}  path Relative path to the configured API endpoint
+ * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
+ * @returns {Promise} of response body
+ */
+export async function get(urlpath, data, suppressRedBox) {
+  let params = data ? urlEncode(data) : null;
+  let newpath = urlpath.indexOf('?') > -1 ? `${urlpath}?${params}` : urlpath;
+
+  return bodyOf(request('get', newpath, null, suppressRedBox));
+}
+
+/**
+ * POST JSON to a path relative to API root url
+ * @param {String} path Relative path to the configured API endpoint
+ * @param {Object} body Anything that you can pass to JSON.stringify
+ * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
+ * @returns {Promise}  of response body
+ */
+export async function post(path, body, suppressRedBox) {
+  return bodyOf(request('post', path, body, suppressRedBox));
+}
+
+/**
+ * PUT JSON to a path relative to API root url
+ * @param {String} path Relative path to the configured API endpoint
+ * @param {Object} body Anything that you can pass to JSON.stringify
+ * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
+ * @returns {Promise}  of response body
+ */
+export async function put(path, body, suppressRedBox) {
+  return bodyOf(request('put', path, body, suppressRedBox));
+}
+
+/**
+ * DELETE a path relative to API root url
+ * @param {String} path Relative path to the configured API endpoint
+ * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
+ * @returns {Promise}  of response body
+ */
+export async function del(path, suppressRedBox) {
+  return bodyOf(request('delete', path, null, suppressRedBox));
+}
+
+/**
+ * Make arbitrary fetch request to a path relative to API root url
+ * @param {String} method One of: get|post|put|delete
+ * @param {String} path Relative path to the configured API endpoint
+ * @param {Object} body Anything that you can pass to JSON.stringify
+ * @param {Boolean} suppressRedBox If true, no warning is shown on failed request
+ */
+export async function request(method, path, body, suppressRedBox) {
+  try {
+    const response = await sendRequest(method, path, body, suppressRedBox);
+    return handleResponse(
+      path,
+      response
+    );
+  }
+  catch (error) {
+    if (!suppressRedBox) {
+      logError(error, url(path), method);
+    }
+    throw error;
+  }
+}
+
+/**
+ * Takes a relative path and makes it a full URL to API server
+ */
+export function url(path) {
+  const apiRoot = getConfiguration('API_ROOT');
+  return path.indexOf('/') === 0
+    ? apiRoot + path
+    : apiRoot + '/' + path;
+}
+
+/**
+ * Constructs and fires a HTTP request
+ */
+async function sendRequest(method, path, body) {
+
+  try {
+    const endpoint = url(path);
+    const token = await getAuthenticationToken();
+    const headers = getRequestHeaders(body, token);
+    const options = body
+      ? {method, headers, body: JSON.stringify(body)}
+      : {method, headers};
+
+    return timeout(fetch(endpoint, options), TIMEOUT);
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+/**
+ * Receives and reads a HTTP response
+ */
+async function handleResponse(path, response) {
+  try {
+    const status = response.status;
+
+    // `fetch` promises resolve even if HTTP status indicates failure. Reroute
+    // promise flow control to interpret error responses as failures
+    if (status >= 400) {
+      const message = await getErrorMessageSafely(response);
+      const error = new HttpError(status, message);
+
+      // emit events on error channel, one for status-specific errors and other for all errors
+      errors.emit(status.toString(), {path, message: error.message});
+      errors.emit('*', {path, message: error.message}, status);
+
+      throw error;
     }
 
-    let cached = await global.storage.getItem(cacheKey);
-    if (cached) {
-        // console.log("from cached")
-      return cached;
-    } else {
-        // console.log("from fetch")
-      let response = await fetch(urlwithParams);
-      let result = await response.json();
-      await global.storage.setItem(cacheKey, result);
-      return result;
-    }
-  },
-  async post(url, data = {}) {
-    var options = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+    // parse response text
+    const responseBody = await response.text();
+    return {
+      status: response.status,
+      headers: response.headers,
+      body: responseBody ? JSON.parse(responseBody) : null
     };
+  } catch (e) {
+    throw e;
+  }
+}
 
-    let response = await fetch(url,options);
-    if (response.ok) {
-      return await response.json();
-    } else {
-      throw new Error(`post failed,err stack:${response.error ? response.error() : ''}`);
+function getRequestHeaders(body, token) {
+  const headers = body
+    ? {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    : {'Accept': 'application/json'};
+
+  if (token) {
+    return {...headers, Authorization: token};
+  }
+
+  return headers;
+}
+
+// try to get the best possible error message out of a response
+// without throwing errors while parsing
+async function getErrorMessageSafely(response) {
+  try {
+    const body = await response.text();
+    if (!body) {
+      return '';
+    }
+
+    // Optimal case is JSON with a defined message property
+    const payload = JSON.parse(body);
+    if (payload && payload.message) {
+      return payload.message;
+    }
+
+    // Should that fail, return the whole response body as text
+    return body;
+
+  } catch (e) {
+    // Unreadable body, return whatever the server returned
+    return response._bodyInit;
+  }
+}
+
+/**
+ * Rejects a promise after `ms` number of milliseconds, it is still pending
+ */
+function timeout(promise, ms) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('timeout')), ms);
+    promise
+      .then(response => {
+        clearTimeout(timer);
+        resolve(response);
+      })
+      .catch(reject);
+  });
+}
+
+async function bodyOf(requestPromise) {
+  try {
+    const response = await requestPromise;
+    return response.body;
+  } catch (e) {
+    throw e;
+  }
+}
+
+/**
+ * param 将要转为URL参数字符串的对象
+ * key URL参数字符串的前缀
+ * encode true/false 是否进行URL编码,默认为true
+ *
+ * return URL参数字符串
+ */
+function urlEncode(param, key, encode) {
+  if (param === null) {return '';}
+  var paramStr = '';
+  var t = typeof (param);
+  if (t === 'string' || t === 'number' || t === 'boolean') {
+    paramStr += '&' + key + '=' + ((encode === null || encode) ? encodeURIComponent(param) : param);
+  } else {
+    for (var i in param) {
+      var k = key ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i);
+      paramStr += urlEncode(param[i], k, encode);
     }
   }
-};
+  return paramStr;
+}
+
+/**
+ * Make best effort to turn a HTTP error or a runtime exception to meaningful error log message
+ */
+function logError(error, endpoint, method) {
+  if (error.status) {
+    const summary = `(${error.status} ${error.statusText}): ${error._bodyInit}`;
+    console.error(`API request ${method.toUpperCase()} ${endpoint} responded with ${summary}`);
+  }
+  else {
+    console.error(`API request ${method.toUpperCase()} ${endpoint} failed with message "${error.message}"`);
+  }
+}
