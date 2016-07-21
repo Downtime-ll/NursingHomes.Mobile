@@ -43,7 +43,9 @@ const stylesForAll = {
 const defaultStyles = StyleSheet.create(stylesForAll);
 
 class NavBar extends Component {
-
+  static defaultProps = {
+    leftButton: '返回'
+  }
   constructor(props) {
     super(props);
     this._renderNavBar = this._renderNavBar.bind(this);

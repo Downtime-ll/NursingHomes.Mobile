@@ -1,7 +1,7 @@
 import {NurserAction} from './constant';
 import {get,post,del,put} from '../../common/services/requestService';
 
-const NurserUrlPath = '/api/v1/topics';
+const NurserUrlPath = '/api/nurser';
 
 function requestNursers() {
   return {
@@ -22,5 +22,27 @@ export async function fetchNursers(search, pageIndex = 1 , pageSize = 10) {
     dispatch(requestNursers());
     let datas = await get(NurserUrlPath,{pageIndex,pageSize});
     dispatch(responseNursers(datas));
+  };
+}
+
+function startAddNurser() {
+  return {
+    type: NurserAction.StartAddNurser
+  };
+}
+
+function finishAddNurser(data) {
+  return {
+    type: NurserAction.FinishAddNurser,
+    payload: data,
+    respondAt: Date.now()
+  };
+}
+
+export async function addNurser(entity) {
+  return async (dispatch) => {
+    dispatch(startAddNurser());
+    let data = await post(NurserUrlPath,entity);
+    dispatch(finishAddNurser(data));
   };
 }

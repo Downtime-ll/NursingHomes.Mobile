@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import {fetchNursers} from './actions';
-import NavigationView from './nurser';
+import NurserView from './nurser';
+import * as NavigationState from '../../common/navigation/actions';
 
 export default connect(
   state => {
@@ -9,6 +10,9 @@ export default connect(
   dispatch => ({
     fetchNursers() {
       dispatch(fetchNursers());
+    },
+    pushRoute(state) {
+      dispatch(NavigationState.pushRoute(state));
     }
   })
-)(NavigationView);
+)(NurserView);

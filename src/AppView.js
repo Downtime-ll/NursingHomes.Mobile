@@ -10,24 +10,25 @@ export default class AppView extends React.Component {
   componentDidMount() {
 
     const {dispatch} = this.props;
-    snapshoutService.resetSnapshot()
-      .then(snaphot => {
+    // snapshoutService.resetSnapshot()
+    //   .then(snaphot => {
 
-        if (snaphot) {
-          dispatch(SessionStateActions.resetSessionStateFromSnapshot(snaphot));
-        } else {
-          dispatch(SessionStateActions.initializeSessionState());
-        }
+    //     if (snaphot) {
+    //       dispatch(SessionStateActions.resetSessionStateFromSnapshot(snaphot));
+    //     } else {
+    //       dispatch(SessionStateActions.initializeSessionState());
+    //     }
 
-        store.subscribe(() => {
-          snapshoutService.saveSnapshot(store.getState());
-        });
-      });
+    //     store.subscribe(() => {
+    //       snapshoutService.saveSnapshot(store.getState());
+    //     });
+    //   });
 
     // dispatch(fetchUserPrefs());
   }
 
   render() {
+    console.log("aaa");
     return (
     <View style={{flex: 1}}>
       <NavigationViewContainer router={AppRouter} />

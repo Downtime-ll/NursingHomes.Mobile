@@ -19,7 +19,22 @@ export default handleActions({
           return new List(action.payload.data);
         }
         return list.push(action.payload.data);
-
+      });
+  },
+  [NurserAction.StartAddNurser]: (state) => {
+    return state
+      .set('nurserSaving', true);
+  },
+  [NurserAction.FinishAddNurser]: (state, action) => {
+    return state
+      .set('nurserSaving', false)
+      .set('nurserSavingSuccess',action.payload.success)
+      .set('nurserSavingError',action.payload.error)
+      .updateIn(['datas'],list => {
+        if (!list) {
+          return new List(action.payload.data);
+        }
+        return list.push(action.payload.data);
       });
   }
 } ,defaultNurserState);

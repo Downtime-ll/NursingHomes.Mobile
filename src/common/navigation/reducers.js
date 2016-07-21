@@ -15,21 +15,22 @@ function createNavigationState(key, title, iconName, routes, shouldRenderHeader 
     title,
     iconName,
     index: 0,
-    routes,
+    routes: routes || [],
     isNavigating: false,
-    shouldRenderHeader: shouldRenderHeader
+    shouldRenderHeader
   };
 }
 
 export default handleActions({
   [NavigationAction.PUSH_ROUTE]: (state, action) => {
+    var nav = {...createNavigationState(),...action.payload};
     return state
       .set('isNavigating', true)
-      .updateIn(['routes', state.get('index')], tabState => {
+      .updateIn(['routes', state.get('index')], tabState =>
         tabState
-          .update('routes', routes => routes.push(fromJS(action.payload)))
-          .set('index', tabState.get('routes').size);
-      });
+          .update('routes', routes => routes.push(fromJS(nav)))
+          .set('index', tabState.get('routes').size)
+      );
   },
   [NavigationAction.POP_ROUTE]: (state) => {
     return state
