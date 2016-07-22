@@ -11,9 +11,8 @@ var Form = t.form.Form;
 
 // here we are: define your domain model
 var Person = t.struct({
-  name: t.String, // a required string
-  surname: t.maybe(t.String), // an optional string
-  age: t.Number, // a required number
+  username: t.String, // an optional string
+  password: t.Number, // a required number
   rememberMe: t.Boolean // a boolean
 });
 var options = {
@@ -21,18 +20,22 @@ var options = {
     name: {
       factory: PhotoForm
     },
-    surname: {
+    username: {
       label: '用户名',
-      auto: 'password',
-      placeholder: 'Your placeholder here',
-      help: 'Your help message here'
+      placeholder: '请输入用户名'
+    },
+    password: {
+      label: '密码'
+    },
+    rememberMe:{
+      label:'记住我'
     }
   }
 };
 
 const AwesomeProject = React.createClass({
   onPress() {
-    Toast.show("登录失败");
+    Toast.show('登录失败');
     // call getValue() to get the values of the form
     var value = this.refs.form.getValue();
 
@@ -47,7 +50,7 @@ const AwesomeProject = React.createClass({
       <Form ref='form' type={Person} options={options} />
       <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
         <Text style={styles.buttonText}>
-          Save
+          登录
         </Text>
 
       </TouchableHighlight>

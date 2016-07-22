@@ -6,74 +6,26 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    marginBottom: 49
   },
-  topicCell: {
+  nurserRow: {
     flex: 1,
     padding: 10,
     backgroundColor: '#FFF',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    height:50,
+
   },
-  topicImage: {
-    width: 35,
-    height: 35,
+  nurserImage: {
+    alignItems: 'center',
+    width: 50,
+    height: 50,
     borderRadius: 5
   },
-  topicBreif: {
+  nurserBreif: {
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start'
-  },
-  topicSubtitle: {
-    paddingHorizontal: 8,
-    flex: 1
-  },
-  topicSubtitleText: {
-    fontSize: 13,
-    lineHeight: 20
-  },
-  topicMintitle: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  topicMintitleText: {
-    fontSize: 12,
-    color: '#999',
-    lineHeight: 15
-  },
-  topicTag: {
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    backgroundColor: '#EFEFEF',
-    borderRadius: 3,
-    marginLeft: 8
-  },
-  topicTagText: {
-    fontSize: 12,
-    color: '#666'
-  // lineHeight:15
-  },
-  topicAccessory: {
-    // width:50
-    paddingHorizontal: 5
-  },
-  topicStatic: {
-    fontSize: 13,
-    color: '#666'
-  },
-  topicReply: {
-    //   marginRight:8,
-    color: 'deeppink',
-    fontSize: 14,
-    fontWeight: '700'
-  },
-  topicTitle: {
-    // paddingHorizontal:8,
-    paddingVertical: 5
-  },
-  topicTitleText: {
-    fontSize: 15
   }
 };
 

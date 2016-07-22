@@ -12,11 +12,12 @@ const FormName = 'NurserInfoForm';
 
 export default class NurserInfo extends React.Component {
   static propTypes= {
-    nurserSaving: PropTypes.boolean,
+    nurserSaving: PropTypes.bool,
     addNurser: PropTypes.func.isRequired,
     pushRoute: PropTypes.func.isRequired,
     popRoute: PropTypes.func.isRequired
   }
+
   static defaultProps = {
     nurserSavingSuccess: true,
     nurserSaving: false
@@ -36,8 +37,11 @@ export default class NurserInfo extends React.Component {
       }
     }
   }
+
   add() {
     var entity = GiftedFormManager.getValues(FormName);
+    entity.sex = entity.sex[0];
+    entity.birthday = moment(entity.birthday).format('YYYY-MM-DD');
     console.log(entity);
     this.props.addNurser(entity);
   }
@@ -63,13 +67,9 @@ export default class NurserInfo extends React.Component {
               }}
               clearOnClose={false}
               defaults={{
-                username: 'Farid',
-                'gender{M}': true,
                 password: '',
-                country: 'FR',
                 birthday: new Date(((new Date()).getFullYear() - 18) + ''),
-                address: '无',
-                sex: '男'
+                address: '无'
               }} >
               <GiftedForm.SeparatorWidget />
 
@@ -97,8 +97,8 @@ export default class NurserInfo extends React.Component {
                   displayValue='sex'>
                 <GiftedForm.SeparatorWidget />
                 <GiftedForm.SelectWidget name='sex' title='性别' multiple={false}>
-                  <GiftedForm.OptionWidget title='男' value='man'/>
-                  <GiftedForm.OptionWidget title='女' value='woman'/>
+                  <GiftedForm.OptionWidget title='Man' value='Men'/>
+                  <GiftedForm.OptionWidget title='Woman' value='Women'/>
                 </GiftedForm.SelectWidget>
               </ModalWidget>
 
